@@ -2,6 +2,8 @@ package com.arthenyo.Loja.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +19,8 @@ public abstract class Pessoa {
     private String email;
     @Column(nullable = false)
     private String telefone;
+    @OneToMany(mappedBy = "pessoa",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Endereco> enderecos = new ArrayList<>();
 
     public Pessoa() {
     }
