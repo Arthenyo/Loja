@@ -1,5 +1,6 @@
 package com.arthenyo.Loja.model;
 
+import com.arthenyo.Loja.enums.TipoEndereco;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -21,11 +22,13 @@ public class Endereco {
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
+    @Enumerated(EnumType.STRING)
+    private TipoEndereco tipoEndereco;
 
     public Endereco() {
     }
 
-    public Endereco(Long id, String rua, String cep, String numero, String complemento, String bairro, String uf, String cidade, Pessoa pessoa) {
+    public Endereco(Long id, String rua, String cep, String numero, String complemento, String bairro, String uf, String cidade, Pessoa pessoa, TipoEndereco tipoEndereco) {
         this.id = id;
         this.rua = rua;
         this.cep = cep;
@@ -35,6 +38,7 @@ public class Endereco {
         this.uf = uf;
         this.cidade = cidade;
         this.pessoa = pessoa;
+        this.tipoEndereco = tipoEndereco;
     }
 
     public Long getId() {
@@ -107,6 +111,14 @@ public class Endereco {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public TipoEndereco getTipoEndereco() {
+        return tipoEndereco;
+    }
+
+    public void setTipoEndereco(TipoEndereco tipoEndereco) {
+        this.tipoEndereco = tipoEndereco;
     }
 
     @Override
