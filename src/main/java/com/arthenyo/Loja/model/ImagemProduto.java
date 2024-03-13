@@ -19,6 +19,9 @@ public class ImagemProduto {
     @JoinColumn(name = "produto_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
     private Produto produto;
 
+    public ImagemProduto() {
+    }
+
     public ImagemProduto(Long id, String imagemOriginal, String imagemMiniatura, Produto produto) {
         this.id = id;
         this.imagemOriginal = imagemOriginal;

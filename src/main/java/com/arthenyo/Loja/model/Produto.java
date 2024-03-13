@@ -28,6 +28,9 @@ public class Produto {
     private Boolean alertaQtdEstoque = Boolean.FALSE;
     private Integer qtdClique = 0;
 
+    public Produto() {
+    }
+
     public Produto(Long id, String tipoUnidade, String nome, String descricao, Double peso, Double largura, Double profundidade, Double altura, String linkYoutube) {
         this.id = id;
         this.tipoUnidade = tipoUnidade;
