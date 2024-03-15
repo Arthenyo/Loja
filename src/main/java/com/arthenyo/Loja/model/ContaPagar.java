@@ -14,11 +14,15 @@ public class ContaPagar {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
     private Long id;
+    @Column(nullable = false)
     private String descricao;
+    @Column(nullable = false)
     private BigDecimal valorTotal;
     private BigDecimal valorDesconto;
+    @Column(nullable = false)
     private LocalDate dtVencimento;
     private LocalDate dtPagemnto;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusContaPagar status;
     @ManyToOne(targetEntity = Pessoa.class)

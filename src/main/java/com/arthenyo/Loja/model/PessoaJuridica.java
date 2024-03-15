@@ -1,5 +1,6 @@
 package com.arthenyo.Loja.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -8,19 +9,25 @@ import jakarta.persistence.Table;
 @Table(name = "tb_pessoa_juridica")
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaJuridica extends Pessoa{
+    @Column(nullable = false)
     private String cnpj;
+    @Column(nullable = false)
     private String inscEstadual;
     private String inscMunicipal;
+    @Column(nullable = false)
     private String nomeFantasia;
+    @Column(nullable = false)
     private String razaoSocial;
+    private String categoria;
 
-    public PessoaJuridica(Long id, String nome, String email, String telefone, String cnpj, String inscEstadual, String inscMunicipal, String nomeFantasia, String razaoSocial) {
+    public PessoaJuridica(Long id, String nome, String email, String telefone, String cnpj, String inscEstadual, String inscMunicipal, String nomeFantasia, String razaoSocial, String categoria) {
         super(id, nome, email, telefone);
         this.cnpj = cnpj;
         this.inscEstadual = inscEstadual;
         this.inscMunicipal = inscMunicipal;
         this.nomeFantasia = nomeFantasia;
         this.razaoSocial = razaoSocial;
+        this.categoria = categoria;
     }
 
     public String getCnpj() {
@@ -61,5 +68,13 @@ public class PessoaJuridica extends Pessoa{
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

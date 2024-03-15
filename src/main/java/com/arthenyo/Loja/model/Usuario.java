@@ -14,9 +14,15 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
     private Long id;
+    @Column(nullable = false)
     private String login;
+    @Column(nullable = false)
     private String senha;
+    @Column(nullable = false)
     private LocalDate dtAtualSenha;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "pessoa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+    private Pessoa pessoa;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_usuario_acesso",uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id","acesso_id"},
     name = "unique_acesso_user"),
@@ -26,11 +32,16 @@ public class Usuario {
     foreignKey = @ForeignKey(name = "acesso_fk",value = ConstraintMode.CONSTRAINT)))
     private List<Acesso> acessos= new ArrayList<>();
 
-    public Usuario(Long id, String login, String senha, LocalDate dtAtualSenha) {
+    public Usuario() {
+    }
+
+    public Usuario(Long id, String login, String senha, LocalDate dtAtualSenha, Pessoa pessoa, List<Acesso> acessos) {
         this.id = id;
         this.login = login;
         this.senha = senha;
         this.dtAtualSenha = dtAtualSenha;
+        this.pessoa = pessoa;
+        this.acessos = acessos;
     }
 
     public Long getId() {
@@ -63,6 +74,14 @@ public class Usuario {
 
     public void setDtAtualSenha(LocalDate dtAtualSenha) {
         this.dtAtualSenha = dtAtualSenha;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public List<Acesso> getAcessos() {
