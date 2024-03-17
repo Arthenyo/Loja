@@ -4,10 +4,10 @@ import com.arthenyo.Loja.model.Acesso;
 import com.arthenyo.Loja.servicies.AcessoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/acesso")
@@ -15,8 +15,12 @@ public class AcessoController {
     @Autowired
     private AcessoService service;
 
+    @ResponseBody
     @PostMapping
     public ResponseEntity<Acesso> create(@RequestBody Acesso acesso){
-        return ResponseEntity.ok().body(service.save(acesso));
+        Acesso entity = service.save(acesso);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(entity.getId()).toUri();
+        return ResponseEntity.created(uri).body(entity);
     }
 }

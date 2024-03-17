@@ -1,11 +1,12 @@
 package com.arthenyo.Loja.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "tb_acesso")
 @SequenceGenerator(name = "seq_acesso",sequenceName = "seq_acesso",allocationSize = 1, initialValue = 1)
-public class Acesso {
+public class Acesso implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_acesso")
     private Long id;
@@ -33,5 +34,10 @@ public class Acesso {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.descricao;
     }
 }
