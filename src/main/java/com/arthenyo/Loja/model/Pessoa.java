@@ -19,17 +19,20 @@ public abstract class Pessoa {
     private String email;
     @Column(nullable = false)
     private String telefone;
+    @Column(nullable = false)
+    private String tipoPessoa;
     @OneToMany(mappedBy = "pessoa",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Endereco> enderecos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String email, String telefone) {
+    public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public Long getId() {
@@ -62,6 +65,22 @@ public abstract class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     @Override

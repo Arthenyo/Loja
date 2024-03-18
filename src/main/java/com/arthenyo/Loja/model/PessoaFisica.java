@@ -15,8 +15,9 @@ public class PessoaFisica extends Pessoa{
     private String cpf;
     @Column(nullable = false)
     private LocalDate dtNacimento;
-    public PessoaFisica(Long id, String nome, String email, String telefone, String cpf, LocalDate dtNacimento) {
-        super(id, nome, email, telefone);
+
+    public PessoaFisica(Long id, String nome, String email, String telefone, String tipoPessoa, String cpf, LocalDate dtNacimento) {
+        super(id, nome, email, telefone, tipoPessoa);
         this.cpf = cpf;
         this.dtNacimento = dtNacimento;
     }
