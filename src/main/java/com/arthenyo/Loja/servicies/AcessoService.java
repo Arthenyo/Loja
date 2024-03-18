@@ -27,14 +27,6 @@ public class AcessoService {
                 .orElseThrow(() -> new ObjectNotFound("Acesso nao encontrado"));
         return acesso;
     }
-    @Transactional(readOnly = true)
-    public List<Acesso> findByDesc(String desc){
-        List<Acesso> acesso = repository.buscarAcessoDesc(desc);
-        if(!acesso.isEmpty()){
-            throw new ObjectNotFound("Acesso nao encontrado");
-        }
-        return acesso;
-    }
     @Transactional
     public Acesso save(Acesso acesso){
         return repository.save(acesso);
