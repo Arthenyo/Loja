@@ -12,4 +12,7 @@ import java.util.List;
 @Transactional
 public interface AcessoRepository extends JpaRepository<Acesso,Long> {
 
+    @Query("SELECT a FROM Acesso a WHERE UPPER(TRIM(a.descricao)) LIKE %?1%")
+    List<Acesso> buscarAcessoDescricao(String desc);
+
 }

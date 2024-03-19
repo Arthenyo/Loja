@@ -3,6 +3,7 @@ package com.arthenyo.Loja.servicies;
 import com.arthenyo.Loja.model.Acesso;
 import com.arthenyo.Loja.repositories.AcessoRepository;
 import com.arthenyo.Loja.servicies.excptions.DateBaseException;
+import com.arthenyo.Loja.servicies.excptions.LojaException;
 import com.arthenyo.Loja.servicies.excptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +23,14 @@ public class AcessoService {
         return acessos;
     }
     @Transactional(readOnly = true)
+    public List<Acesso> findByDesc(String desc){
+        List<Acesso> acessos = repository.buscarAcessoDescricao(desc.toUpperCase());
+        if(acessos.isEmpty()){
+            throw new ObjectNotFound("Acesso nao Encontrado: " + desc);
+        }
+        return acessos;
+    }
+    @Transactional(readOnly = true)
     public Acesso findById(Long id){
         Acesso acesso = repository.findById(id)
                 .orElseThrow(() -> new ObjectNotFound("Acesso nao encontrado"));
@@ -29,6 +38,12 @@ public class AcessoService {
     }
     @Transactional
     public Acesso save(Acesso acesso){
+        if(acesso.getId() == null){
+            List<Acesso> acessos = repository.buscarAcessoDescricao(acesso.getDescricao().toUpperCase());
+            if(!acessos.isEmpty()){
+                throw new LojaException("Já existe um acesso com essa descrição " + acesso.getDescricao());
+            }
+        }
         return repository.save(acesso);
     }
     @Transactional(propagation = Propagation.SUPPORTS)

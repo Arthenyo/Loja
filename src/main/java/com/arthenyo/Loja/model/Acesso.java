@@ -1,5 +1,6 @@
 package com.arthenyo.Loja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,7 +11,7 @@ public class Acesso implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_acesso")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String descricao;
 
     public Acesso() {
@@ -28,10 +29,14 @@ public class Acesso implements GrantedAuthority {
         this.id = id;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return this.descricao;

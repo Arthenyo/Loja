@@ -2,6 +2,7 @@ package com.arthenyo.Loja.controlleries.handlers;
 
 import com.arthenyo.Loja.customErro.CustomException;
 import com.arthenyo.Loja.servicies.excptions.DateBaseException;
+import com.arthenyo.Loja.servicies.excptions.LojaException;
 import com.arthenyo.Loja.servicies.excptions.ObjectNotFound;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -26,4 +27,11 @@ public class ControllerExceptionHandler {
         CustomException err = new CustomException(Instant.now(),status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
+    @ExceptionHandler(LojaException.class)
+    public ResponseEntity<CustomException> lojaException(LojaException e,HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        CustomException err = new CustomException(Instant.now(),status.value(),e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
 }

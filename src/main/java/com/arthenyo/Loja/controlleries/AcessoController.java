@@ -21,10 +21,15 @@ public class AcessoController {
         Acesso acesso = service.findById(id);
         return ResponseEntity.ok().body(acesso);
     }
-    @GetMapping
-    public ResponseEntity<List<Acesso>> findAll(){
-        List<Acesso> acesso = service.findAll();
+    @GetMapping()
+    public ResponseEntity<List<Acesso>> findBYDesc(@RequestParam(value = "desc",required = false) String desc){
+        if(desc == null){
+            List<Acesso> acesso = service.findAll();
+            return ResponseEntity.ok().body(acesso);
+        }
+        List<Acesso> acesso = service.findByDesc(desc);
         return ResponseEntity.ok().body(acesso);
+
     }
 
     @ResponseBody
