@@ -22,16 +22,20 @@ public class CupDesc {
 
     @Column(nullable = false)
     private LocalDate dataValidadeCupom;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public CupDesc() {
     }
 
-    public CupDesc(Long id, String codDesc, BigDecimal valorRealDesc, BigDecimal valorPorcentDesc, LocalDate dataValidadeCupom) {
+    public CupDesc(Long id, String codDesc, BigDecimal valorRealDesc, BigDecimal valorPorcentDesc, LocalDate dataValidadeCupom, Pessoa empresa) {
         this.id = id;
         this.codDesc = codDesc;
         this.valorRealDesc = valorRealDesc;
         this.valorPorcentDesc = valorPorcentDesc;
         this.dataValidadeCupom = dataValidadeCupom;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -72,6 +76,14 @@ public class CupDesc {
 
     public void setDataValidadeCupom(LocalDate dataValidadeCupom) {
         this.dataValidadeCupom = dataValidadeCupom;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

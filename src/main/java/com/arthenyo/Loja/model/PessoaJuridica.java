@@ -20,8 +20,8 @@ public class PessoaJuridica extends Pessoa{
     private String razaoSocial;
     private String categoria;
 
-    public PessoaJuridica(Long id, String nome, String email, String telefone, String tipoPessoa, String cnpj, String inscEstadual, String inscMunicipal, String nomeFantasia, String razaoSocial, String categoria) {
-        super(id, nome, email, telefone, tipoPessoa);
+    public PessoaJuridica(Long id, String nome, String email, String telefone, String tipoPessoa, Pessoa empresa, String cnpj, String inscEstadual, String inscMunicipal, String nomeFantasia, String razaoSocial, String categoria) {
+        super(id, nome, email, telefone, tipoPessoa, empresa);
         this.cnpj = cnpj;
         this.inscEstadual = inscEstadual;
         this.inscMunicipal = inscMunicipal;

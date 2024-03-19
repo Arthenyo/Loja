@@ -31,11 +31,14 @@ public class Endereco {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoEndereco tipoEndereco;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public Endereco() {
     }
 
-    public Endereco(Long id, String rua, String cep, String numero, String complemento, String bairro, String uf, String cidade, Pessoa pessoa, TipoEndereco tipoEndereco) {
+    public Endereco(Long id, String rua, String cep, String numero, String complemento, String bairro, String uf, String cidade, Pessoa pessoa, TipoEndereco tipoEndereco, Pessoa empresa) {
         this.id = id;
         this.rua = rua;
         this.cep = cep;
@@ -46,6 +49,7 @@ public class Endereco {
         this.cidade = cidade;
         this.pessoa = pessoa;
         this.tipoEndereco = tipoEndereco;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -126,6 +130,14 @@ public class Endereco {
 
     public void setTipoEndereco(TipoEndereco tipoEndereco) {
         this.tipoEndereco = tipoEndereco;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

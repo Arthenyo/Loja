@@ -18,16 +18,21 @@ public class StatusRastreio {
     @ManyToOne
     @JoinColumn(name = "venda_compra_loja_vir_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_vir_fk"))
     private VendaCompraLojaVirtual vendaCompraLojaVirtual;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public StatusRastreio() {
     }
 
-    public StatusRastreio(Long id, String centroDestribuicao, String cidade, String estado, String status) {
+    public StatusRastreio(Long id, String centroDestribuicao, String cidade, String estado, String status, VendaCompraLojaVirtual vendaCompraLojaVirtual, Pessoa empresa) {
         this.id = id;
         this.centroDestribuicao = centroDestribuicao;
         this.cidade = cidade;
         this.estado = estado;
         this.status = status;
+        this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -68,6 +73,22 @@ public class StatusRastreio {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public VendaCompraLojaVirtual getVendaCompraLojaVirtual() {
+        return vendaCompraLojaVirtual;
+    }
+
+    public void setVendaCompraLojaVirtual(VendaCompraLojaVirtual vendaCompraLojaVirtual) {
+        this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

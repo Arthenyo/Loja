@@ -42,11 +42,14 @@ public class VendaCompraLojaVirtual {
     private LocalDate dtVenda;
     @Column(nullable = false)
     private LocalDate dtEntrega;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public VendaCompraLojaVirtual() {
     }
 
-    public VendaCompraLojaVirtual(Long id, Pessoa pessoa, Endereco enderecoEntrega, Endereco enderecoCobranca, BigDecimal valorTotal, BigDecimal valorDesconto, FormaPagamento formaPagamento, NotaFiscalVenda notaFiscalVenda, CupDesc cupDesc, BigDecimal valorFrete, Integer diaEntrega, LocalDate dtVenda, LocalDate dtEntrega) {
+    public VendaCompraLojaVirtual(Long id, Pessoa pessoa, Endereco enderecoEntrega, Endereco enderecoCobranca, BigDecimal valorTotal, BigDecimal valorDesconto, FormaPagamento formaPagamento, NotaFiscalVenda notaFiscalVenda, CupDesc cupDesc, BigDecimal valorFrete, Integer diaEntrega, LocalDate dtVenda, LocalDate dtEntrega, Pessoa empresa) {
         this.id = id;
         this.pessoa = pessoa;
         this.enderecoEntrega = enderecoEntrega;
@@ -60,6 +63,7 @@ public class VendaCompraLojaVirtual {
         this.diaEntrega = diaEntrega;
         this.dtVenda = dtVenda;
         this.dtEntrega = dtEntrega;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -164,6 +168,14 @@ public class VendaCompraLojaVirtual {
 
     public void setDtEntrega(LocalDate dtEntrega) {
         this.dtEntrega = dtEntrega;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

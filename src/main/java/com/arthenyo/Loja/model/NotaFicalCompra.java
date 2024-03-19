@@ -31,11 +31,14 @@ public class NotaFicalCompra {
     @ManyToOne
     @JoinColumn(name = "conta_pagar_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
     private ContaPagar contaPagar;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public NotaFicalCompra() {
     }
 
-    public NotaFicalCompra(Long id, String numeroNota, String serieNota, String descricaoObs, BigDecimal valorTotal, BigDecimal valorDesconto, BigDecimal valorIcms, LocalDate dtCompra, Pessoa pessoa, ContaPagar contaPagar) {
+    public NotaFicalCompra(Long id, String numeroNota, String serieNota, String descricaoObs, BigDecimal valorTotal, BigDecimal valorDesconto, BigDecimal valorIcms, LocalDate dtCompra, Pessoa pessoa, ContaPagar contaPagar, Pessoa empresa) {
         this.id = id;
         this.numeroNota = numeroNota;
         this.serieNota = serieNota;
@@ -46,6 +49,7 @@ public class NotaFicalCompra {
         this.dtCompra = dtCompra;
         this.pessoa = pessoa;
         this.contaPagar = contaPagar;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -126,6 +130,14 @@ public class NotaFicalCompra {
 
     public void setContaPagar(ContaPagar contaPagar) {
         this.contaPagar = contaPagar;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

@@ -36,11 +36,14 @@ public class Produto {
     private String linkYoutube;
     private Boolean alertaQtdEstoque = Boolean.FALSE;
     private Integer qtdClique = 0;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public Produto() {
     }
 
-    public Produto(Long id, String tipoUnidade, String nome, String descricao, Double peso, Double largura, Double profundidade, Double altura, String linkYoutube) {
+    public Produto(Long id, String tipoUnidade, String nome, String descricao, Double peso, Double largura, Double profundidade, Double altura, String linkYoutube,Pessoa empresa) {
         this.id = id;
         this.tipoUnidade = tipoUnidade;
         this.nome = nome;
@@ -50,6 +53,7 @@ public class Produto {
         this.profundidade = profundidade;
         this.altura = altura;
         this.linkYoutube = linkYoutube;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -170,6 +174,14 @@ public class Produto {
 
     public void setQtdClique(Integer qtdClique) {
         this.qtdClique = qtdClique;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

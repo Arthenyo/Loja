@@ -13,13 +13,17 @@ public class FormaPagamento {
     private Long id;
     @Column(nullable = false)
     private String descricao;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long id, String descricao) {
+    public FormaPagamento(Long id, String descricao, Pessoa empresa) {
         this.id = id;
         this.descricao = descricao;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -36,6 +40,14 @@ public class FormaPagamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

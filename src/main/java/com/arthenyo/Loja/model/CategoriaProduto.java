@@ -13,13 +13,17 @@ public class CategoriaProduto {
     private Long id;
     @Column(nullable = false)
     private String nomeDesc;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public CategoriaProduto() {
     }
 
-    public CategoriaProduto(Long id, String nomeDesc) {
+    public CategoriaProduto(Long id, String nomeDesc, Pessoa empresa) {
         this.id = id;
         this.nomeDesc = nomeDesc;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -36,6 +40,14 @@ public class CategoriaProduto {
 
     public void setNomeDesc(String nomeDesc) {
         this.nomeDesc = nomeDesc;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

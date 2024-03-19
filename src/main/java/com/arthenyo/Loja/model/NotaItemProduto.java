@@ -19,15 +19,19 @@ public class NotaItemProduto {
     @ManyToOne
     @JoinColumn(name = "nota_fiscal_compra_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk"))
     private NotaFicalCompra notaFicalCompra;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public NotaItemProduto() {
     }
 
-    public NotaItemProduto(Long id, Double quantidade, Produto produto, NotaFicalCompra notaFicalCompra) {
+    public NotaItemProduto(Long id, Double quantidade, Produto produto, NotaFicalCompra notaFicalCompra, Pessoa empresa) {
         this.id = id;
         this.quantidade = quantidade;
         this.produto = produto;
         this.notaFicalCompra = notaFicalCompra;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -60,6 +64,14 @@ public class NotaItemProduto {
 
     public void setNotaFicalCompra(NotaFicalCompra notaFicalCompra) {
         this.notaFicalCompra = notaFicalCompra;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

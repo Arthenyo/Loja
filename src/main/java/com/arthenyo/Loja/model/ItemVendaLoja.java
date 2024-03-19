@@ -19,15 +19,19 @@ public class ItemVendaLoja {
     @ManyToOne
     @JoinColumn(name = "vd_cp_loja_virt_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "vd_cp_loja_virt_fk"))
     private VendaCompraLojaVirtual vendaCompraLojaVirtual;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public ItemVendaLoja() {
     }
 
-    public ItemVendaLoja(Long id, Double quantidade, Produto produto, VendaCompraLojaVirtual vendaCompraLojaVirtual) {
+    public ItemVendaLoja(Long id, Double quantidade, Produto produto, VendaCompraLojaVirtual vendaCompraLojaVirtual, Pessoa empresa) {
         this.id = id;
         this.quantidade = quantidade;
         this.produto = produto;
         this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -58,8 +62,17 @@ public class ItemVendaLoja {
         return vendaCompraLojaVirtual;
     }
 
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
+    }
+
     public void setVendaCompraLojaVirtual(VendaCompraLojaVirtual vendaCompraLojaVirtual) {
         this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+
     }
 
     @Override

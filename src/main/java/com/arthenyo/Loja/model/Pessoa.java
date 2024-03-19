@@ -23,16 +23,20 @@ public abstract class Pessoa {
     private String tipoPessoa;
     @OneToMany(mappedBy = "pessoa",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Endereco> enderecos = new ArrayList<>();
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa) {
+    public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa, Pessoa empresa) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.tipoPessoa = tipoPessoa;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -81,6 +85,14 @@ public abstract class Pessoa {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

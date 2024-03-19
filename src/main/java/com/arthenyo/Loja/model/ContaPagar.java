@@ -31,11 +31,14 @@ public class ContaPagar {
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_forn_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_id"))
     private Pessoa pessoaFornecedor;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public ContaPagar() {
     }
 
-    public ContaPagar(Long id, String descricao, BigDecimal valorTotal, BigDecimal valorDesconto, LocalDate dtVencimento, LocalDate dtPagemnto, StatusContaPagar status, Pessoa pessoa, Pessoa pessoaFornecedor) {
+    public ContaPagar(Long id, String descricao, BigDecimal valorTotal, BigDecimal valorDesconto, LocalDate dtVencimento, LocalDate dtPagemnto, StatusContaPagar status, Pessoa pessoa, Pessoa pessoaFornecedor, Pessoa empresa) {
         this.id = id;
         this.descricao = descricao;
         this.valorTotal = valorTotal;
@@ -45,6 +48,7 @@ public class ContaPagar {
         this.status = status;
         this.pessoa = pessoa;
         this.pessoaFornecedor = pessoaFornecedor;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -117,6 +121,14 @@ public class ContaPagar {
 
     public void setPessoaFornecedor(Pessoa pessoaFornecedor) {
         this.pessoaFornecedor = pessoaFornecedor;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

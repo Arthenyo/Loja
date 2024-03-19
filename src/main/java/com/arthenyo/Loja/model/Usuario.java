@@ -26,6 +26,9 @@ public class Usuario implements UserDetails {
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_usuario_acesso",uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id","acesso_id"},
     name = "unique_acesso_user"),
@@ -38,12 +41,13 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(Long id, String login, String senha, LocalDate dtAtualSenha, Pessoa pessoa) {
+    public Usuario(Long id, String login, String senha, LocalDate dtAtualSenha, Pessoa pessoa, Pessoa empresa) {
         this.id = id;
         this.login = login;
         this.senha = senha;
         this.dtAtualSenha = dtAtualSenha;
         this.pessoa = pessoa;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -92,6 +96,14 @@ public class Usuario implements UserDetails {
 
     public void setAcessos(List<Acesso> acessos) {
         this.acessos = acessos;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

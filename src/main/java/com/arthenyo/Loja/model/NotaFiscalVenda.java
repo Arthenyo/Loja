@@ -24,17 +24,22 @@ public class NotaFiscalVenda {
     @OneToOne
     @JoinColumn(name = "venda_compra_loja_vir_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_vir_fk"))
     private VendaCompraLojaVirtual vendaCompraLojaVirtual;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public NotaFiscalVenda() {
     }
 
-    public NotaFiscalVenda(Long id, String numero, String serie, String tipo, String xml, String pdf) {
+    public NotaFiscalVenda(Long id, String numero, String serie, String tipo, String xml, String pdf, VendaCompraLojaVirtual vendaCompraLojaVirtual, Pessoa empresa) {
         this.id = id;
         this.numero = numero;
         this.serie = serie;
         this.tipo = tipo;
         this.xml = xml;
         this.pdf = pdf;
+        this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -83,6 +88,22 @@ public class NotaFiscalVenda {
 
     public void setPdf(String pdf) {
         this.pdf = pdf;
+    }
+
+    public VendaCompraLojaVirtual getVendaCompraLojaVirtual() {
+        return vendaCompraLojaVirtual;
+    }
+
+    public void setVendaCompraLojaVirtual(VendaCompraLojaVirtual vendaCompraLojaVirtual) {
+        this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

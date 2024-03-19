@@ -21,16 +21,20 @@ public class AvaliacaoProduto {
     @ManyToOne
     @JoinColumn(name = "produto_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
     private Produto produto;
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
 
     public AvaliacaoProduto() {
     }
 
-    public AvaliacaoProduto(Long id, String descricao, Integer nota, Pessoa pessoa, Produto produto) {
+    public AvaliacaoProduto(Long id, String descricao, Integer nota, Pessoa pessoa, Produto produto, Pessoa empresa) {
         this.id = id;
         this.descricao = descricao;
         this.nota = nota;
         this.pessoa = pessoa;
         this.produto = produto;
+        this.empresa = empresa;
     }
 
     public Long getId() {
@@ -71,6 +75,14 @@ public class AvaliacaoProduto {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override
