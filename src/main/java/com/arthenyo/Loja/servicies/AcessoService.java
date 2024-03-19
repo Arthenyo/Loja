@@ -24,7 +24,7 @@ public class AcessoService {
     }
     @Transactional(readOnly = true)
     public List<Acesso> findByDesc(String desc){
-        List<Acesso> acessos = repository.buscarAcessoDescricao(desc.toUpperCase());
+        List<Acesso> acessos = repository.buscarAcessoDescricao("%" + desc.toUpperCase() +"%");
         if(acessos.isEmpty()){
             throw new ObjectNotFound("Acesso nao Encontrado: " + desc);
         }
@@ -39,9 +39,9 @@ public class AcessoService {
     @Transactional
     public Acesso save(Acesso acesso){
         if(acesso.getId() == null){
-            List<Acesso> acessos = repository.buscarAcessoDescricao(acesso.getDescricao().toUpperCase());
+            List<Acesso> acessos = repository.buscarAcessoDescricao(acesso.getDescricao());
             if(!acessos.isEmpty()){
-                throw new LojaException("Já existe um acesso com essa descrição " + acesso.getDescricao());
+                throw new LojaException("Já existe um acesso com essa descrição " + acesso.getDescricao().toUpperCase());
             }
         }
         return repository.save(acesso);
