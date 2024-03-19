@@ -32,7 +32,7 @@ public class Endereco {
     @Column(nullable = false)
     private TipoEndereco tipoEndereco;
     @ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "empresa_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    @JoinColumn(name = "empresa_id",foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
     private Pessoa empresa;
 
     public Endereco() {
